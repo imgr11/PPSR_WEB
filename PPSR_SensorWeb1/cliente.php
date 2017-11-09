@@ -11,25 +11,33 @@
 <div id="cont">
 <?php
 	// nome di host 
-	$host = "localhost";
+	$host = 'localhost';
 	// username dell'utente in connessione
-	$user = "root";
+	$user = 'root';
 	// password dell'utente
-	$password = "";
+	$password = '';
 	// nome del database
-	$db = "test";
+	$db = 'test';
 
 	// stringa di connessione al DBMS
 	$connessione = new mysqli($host, $user, $password, $db);
 	
-
+	//definizione costanti
+	define('ZERO', 0);
+	define('UNO', 1);
+	define('DUE', 2);
+	define('TRE', 3);
 	
 	
 session_start();
 $id=  $_SESSION['lol'];
 		
-
-$query3 = "SELECT `nome`, `cognome` FROM `utenti` WHERE ID='$id'" ;
+$query3 = sprintf(
+				"SELECT `nome`, `cognome` FROM `utenti` WHERE ID='%s'",
+					mysqli_real_escape_string($connessione,$id)
+					
+			);
+//$query3 = "SELECT `nome`, `cognome` FROM `utenti` WHERE ID='$id'" ;
 $risultato = $connessione->query($query3);
 while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 	$name=$row1[0];
@@ -72,7 +80,14 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 				<tbody>
 					<?php 
 					// al posto di 6 mettere variabile presa da login SELECT ID FROM `impianti` WHERE Cliente=6
-					$query1 = "SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '$id'";
+				$query1 = sprintf(
+				"SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '%s'",
+					mysqli_real_escape_string($connessione,$id)
+					
+			);
+					
+					//$query1 = "SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '$id'";
+							
 					$result = $connessione->query($query1);
 						
 						while ($row1 = $result->fetch_array(MYSQLI_NUM)){
@@ -81,8 +96,8 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 						?>
 					<tr> 
 		
-						<td>  <?php echo htmlspecialchars ($row1[0]);?> </td>
-						<td>  <?php echo htmlspecialchars ($row1[1]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[ZERO]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[UNO]);?> </td>
 						
 						
 				</tr>
@@ -125,15 +140,20 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 				
 				<tbody>
 					<?php 
-				$ID ="";
+				$ID ='';
 					
 					if (isset($_POST['ID'])) $ID=$_POST['ID'];
 
 					
 					if ($ID == "" ){
-							echo "Riempire tutti i campi";
+							echo 'Riempire tutti i campi';
 					} else{
-						$query3 = "SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'" ;
+						$query3 = sprintf(
+						"SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'",
+						
+						mysqli_real_escape_string($connessione,$ID)
+					);
+						//$query3 = "SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'" ;
 						$sensori = $connessione->query($query3);
 						while ($row1 = $sensori->fetch_array(MYSQLI_NUM)){
 					
@@ -142,13 +162,13 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 		
 						<td>  <?php 
 									
-										echo htmlspecialchars ($row1[0]);
+										echo htmlspecialchars ($row1[ZERO]);
 									
 							
 						
 						?> </td>
 						<td>  <?php 
-										echo htmlspecialchars ($row1[1]);
+										echo htmlspecialchars ($row1[UNO]);
 									
 						?></td>
 				
@@ -214,9 +234,14 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 				
 					
 					if ($nome == "" ){
-							echo "Riempire tutti i campi";
+							echo 'Riempire tutti i campi';
 					} else{
-						$query3 = "SELECT `ID` `Codice` FROM `utenti` WHERE codice='$nome'" ;
+						$query3 = sprintf(
+						"SELECT `ID` `Codice` FROM `utenti` WHERE codice='%s'",
+						mysqli_real_escape_string($connessione,$nome)
+					);
+						//$query3 = "SELECT `ID` `Codice` FROM `utenti` WHERE codice='$nome'" ;
+						
 						$risultato = $connessione->query($query3);
 						while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 							
@@ -243,8 +268,13 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 				
 				<tbody>
 					<?php 
+					$query1 = sprintf(
+						"SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '%s'",
+						mysqli_real_escape_string($connessione,$ID1)
+					
+					);
 					// al posto di 6 mettere variabile presa da login SELECT ID FROM `impianti` WHERE Cliente=6
-					$query1 = "SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '$ID1'";
+					//$query1 = "SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '$ID1'";
 					$result = $connessione->query($query1);
 						
 						while ($row1 = $result->fetch_array(MYSQLI_NUM)){
@@ -253,8 +283,8 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 						?>
 					<tr> 
 		
-						<td>  <?php echo htmlspecialchars ($row1[0]);?> </td>
-						<td>  <?php echo htmlspecialchars ($row1[1]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[ZERO]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[UNO]);?> </td>
 						
 						
 				</tr>
@@ -296,23 +326,27 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 				
 				<tbody>
 					<?php 
-				$ID ="";
+				$ID ='';
 					
 					if (isset($_POST['ID3'])) $ID=$_POST['ID3'];
 
 					
 					if ($ID == "" ){
-							echo "Riempire tutti i campi";
+							echo 'Riempire tutti i campi';
 					} else{
-						$query3 = "SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'" ;
+						$query3 = sprintf(
+						"SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '%s'",
+						mysqli_real_escape_string($connessione,$ID)
+					);
+						//$query3 = "SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'" ;
 						$sensori = $connessione->query($query3);
 						while ($row1 = $sensori->fetch_array(MYSQLI_NUM)){
 					
 						?>
 					<tr> 
 		
-						<td>  <?php echo htmlspecialchars ($row1[0]);?> </td>
-						<td>  <?php echo htmlspecialchars ($row1[1]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[ZERO]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[UNO]);?> </td>
 				
 				</tr>
 					<?php
@@ -341,7 +375,11 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 				
 				<tbody>
 					<?php 
-						$query1 = "SELECT codice FROM utenti WHERE ID = '$id' " ;
+					$query1 = sprintf(
+							"SELECT codice FROM utenti WHERE ID = '%s'",
+							mysqli_real_escape_string($connessione,$id)
+						);
+						//$query1 = "SELECT codice FROM utenti WHERE ID = '$id' " ;
 						$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
@@ -350,7 +388,7 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 						?>
 					<tr> 
 		
-						<td>  <?php echo htmlspecialchars ($row1[0]);?> </td>
+						<td>  <?php echo htmlspecialchars ($row1[ZERO]);?> </td>
 					
 				</tr>
 					<?php

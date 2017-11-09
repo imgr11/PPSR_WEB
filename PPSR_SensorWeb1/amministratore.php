@@ -9,13 +9,13 @@
 <div id="cont">
 <?php
 	// nome di host
-	$host = "localhost";
+	$host = 'localhost';
 	// username dell'utente in connessione
-	$user = "root";
+	$user = 'root';
 	// password dell'utente
-	$password = "";
+	$password = '';
 	// nome del database
-	$db = "test";
+	$db = 'test';
 
 	// stringa di connessione al DBMS
 	$connessione = new mysqli($host, $user, $password, $db);
@@ -24,10 +24,10 @@
 	
 	
 	//definizione costanti
-	define("ZERO", 0);
-	define("UNO", 1);
-	define("DUE", 2);
-	define("TRE", 3);
+	define('ZERO', 0);
+	define('UNO', 1);
+	define('DUE', 2);
+	define('TRE', 3);
 	
 	
 ?>
@@ -139,8 +139,8 @@
 					$cognome= "";
 					$password2 ="";
 						
-					if (isset($_POST['email'])) $email=$_POST['email'];
-					if (isset($_POST['nome1'])) $nome=$_POST['nome1'];
+					if (isset($_POST['email']))  $email=$_POST['email'];
+					if (isset($_POST['nome1']))  $nome=$_POST['nome1'];
 					if (isset($_POST['cognome'])) $cognome=$_POST['cognome'];
 					if (isset($_POST['password1'])) $password2=$_POST['password1'];
 					
@@ -148,7 +148,14 @@
 							echo "Riempire tutti i campi";
 							
 					} else{
-						$query3 = "INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','$nome','$cognome','$email','$password2','1')" ;
+						$query3 = sprintf(
+						"INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','%s','%s','%s','%s','1')",
+					mysqli_real_escape_string($connessione,$nome),
+					mysqli_real_escape_string($connessione,$cognome),
+					mysqli_real_escape_string($connessione,$email),
+					mysqli_real_escape_string($connessione,$password2)
+			);
+						//$query3 = "INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','$nome','$cognome','$email','$password2','1')" ;
 						$impianti = $connessione->query($query3);
 					}
 					
@@ -233,7 +240,12 @@
 					if ($id == "" ){
 							echo "Riempire tutti i campi";
 					} else{
-						$query5 = "DELETE FROM `utenti` WHERE ID = '$id' " ;
+					$query5 = sprintf(
+						"DELETE FROM `utenti` WHERE ID = '%s'",
+						mysqli_real_escape_string($connessione,$id)
+						
+					);
+						//$query5 = "DELETE FROM `utenti` WHERE ID = '$id' " ;
 						$impianti = $connessione->query($query5);
 					}
 				

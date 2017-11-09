@@ -11,13 +11,13 @@
 <div id="cont">
 <?php
 	// nome di host 
-	$host = "localhost";
+	$host = 'localhost';
 	// username dell'utente in connessione
-	$user = "root";
+	$user = 'root';
 	// password dell'utente
-	$password = "";
+	 $password = '';
 	// nome del database
-	$db = "test";
+	$db = 'test';
 
 	// stringa di connessione al DBMS
 	$connessione = new mysqli($host, $user, $password, $db);
@@ -26,10 +26,10 @@
 	
 	
 	//definizione costanti
-	define("ZERO", 0);
-	define("UNO", 1);
-	define("DUE", 2);
-	define("TRE", 3);
+	define('ZERO', 0);
+	define('UNO', 1);
+	define('DUE', 2);
+	define('TRE', 3);
 	
 ?>
   <!-- inizio titolo -->
@@ -104,47 +104,66 @@
 		   
 				  <div id="frm">
 				<form  method="POST">
-					<p>
+				<table class="form-user">
+					<tr><td>
 						<label>Nome</label>
+						</td><td>
 						<input type="text" id="nome1" name="nome1"/>
-						
-					</p>
-					<p>
+						</td></tr>
+					<tr><td>
+					
+					<tr><td>
 						<label>Cognome </label>
+						</td><td>
 						<input type="text" id="cognome" name="cognome"/>
-					</p>
-					<p>
+						</td></tr>
+					<tr><td>
+					<tr><td>
 						<label>Email </label>
+						</td><td>
 						<input type="text" id="email" name="email"/>
-					</p>
-					<p>
+						</td></tr>
+					<tr><td>
+					
+					<tr><td>
 						<label>Password </label>
+						</td><td>
 						<input type="password" id="password1" name="password1"/>
-					</p>
-					<p>
+						</td></tr>
+					<tr><th colspan ="2">
+					<br>
 						
 						<input type="submit" id="btn1" name="Insersci"/>
-					</p>
+						
+					</tr></th>
+					</table>
 					
-	
          </form>
    
     </div>
 			 <?php
-					$email ="";
-					$nome = "";
-					$cognome= "";
-					$password2 ="";
+					 $email ='';
+					 $nome = '';
+					 $cognome= '';
+					 $password2 ='';
 						
-					if (isset($_POST['email'])) $email=$_POST['email'];
+					if (isset($_POST['email']))  $email=$_POST['email'];
 					if (isset($_POST['nome1'])) $nome=$_POST['nome1'];
 					if (isset($_POST['cognome'])) $cognome=$_POST['cognome'];
 					if (isset($_POST['password1'])) $password2=$_POST['password1'];
 					
 					if ($email == "" or $nome == "" or $cognome == "" or $password2==""){
-							echo "Riempire tutti i campi";
+							echo 'Riempire tutti i campi';
 					} else{
-						$query3 = "INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','$nome','$cognome','$email','$password2','0')" ;
+						
+						$query3 = sprintf(
+							"INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','%s','%s','%s','%s','0')",
+							mysqli_real_escape_string($connessione,$nome),
+							mysqli_real_escape_string($connessione,$cognome),
+							mysqli_real_escape_string($connessione,$email),
+							mysqli_real_escape_string($connessione,$password2)
+						);
+						//$query3 = "INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','$nome','$cognome','$email','$password2','0')" ;
 						$impianti = $connessione->query($query3);
 					}
 				
@@ -267,7 +286,7 @@
 			 <?php
 					
 					
-					$id44 = "";
+					 $id44 = '';
 						
 				
 					if (isset($_POST['id44'])) $id44=$_POST['id44'];
@@ -276,7 +295,12 @@
 					if ($id44 == ""){
 							echo "Riempire tutti i campi";
 					} else{
-						$query5 = "DELETE FROM `utenti` WHERE ID = '$id44' " ;
+							$query5 = sprintf(
+							"DELETE FROM `utenti` WHERE ID = '%s' ",
+							mysqli_real_escape_string($connessione,$id44)
+						
+						);
+						 //$query5 = "DELETE FROM `utenti` WHERE ID = '$id44' " ;
 						$impianti = $connessione->query($query5);
 					}
 				
@@ -297,6 +321,7 @@
 				
 				<thead>
 					<tr>
+						
 						<th>Nome</th>
 						<th>Cognome</th>
 						<th>Email</th>
@@ -355,8 +380,8 @@
     </div>
 			 <?php
 					
-					$nome1 = "";
-					$id = "";
+					$nome1 = '';
+					$id = '';
 						
 					if (isset($_POST['nome2'])) $nome1=$_POST['nome2'];
 					if (isset($_POST['id'])) $id=$_POST['id'];
@@ -365,7 +390,14 @@
 					if ($nome1 == "" or $id == ""){
 							echo "Riempire tutti i campi";
 					} else{
-						$query4 = "INSERT INTO `impianti`(`ID`, `Nome`, `Cliente`) VALUES ('','$nome1','$id')" ;
+						$query4 = sprintf(
+							"INSERT INTO `impianti`(`ID`, `Nome`, `Cliente`) VALUES ('','%s','%s')",
+							mysqli_real_escape_string($connessione,$nome1),
+							mysqli_real_escape_string($connessione,$id)
+							
+						
+						);
+						//$query4 = "INSERT INTO `impianti`(`ID`, `Nome`, `Cliente`) VALUES ('','$nome1','$id')" ;
 						$impianti = $connessione->query($query4);
 					}
 				
@@ -440,16 +472,21 @@
 					
 			
 				
-					$id = "";
+					$id = '';
 						
 				
 					if (isset($_POST['id'])) $id=$_POST['id'];
 				
 					
 					if ($id == "" ){
-							echo "Riempire tutti i campi";
+							echo 'Riempire tutti i campi';
 					} else{																//VEDERE SE ELIMINARE PURE I SENSORI
-						$query5 = "DELETE FROM `impianti` WHERE ID = '$id' " ;
+						//$query5 = "DELETE FROM `impianti` WHERE ID = '$id' " ;
+						$query5 = sprintf(
+							"DELETE FROM `impianti` WHERE ID = '$id' ",
+							mysqli_real_escape_string($connessione,$id)
+						
+						);
 						$impianti = $connessione->query($query5);
 					}
 				
@@ -511,9 +548,9 @@
    
     </div>
 			 <?php
-					$cod ="";
-					$tipo = "";
-					$marca= "";
+					$cod ='';
+					$tipo = '';
+					$marca= '';
 				
 						
 					if (isset($_POST['cod'])) $cod=$_POST['cod'];
@@ -525,7 +562,15 @@
 					if ($cod == "" or $tipo == "" or $marca == ""){
 							echo "Riempire tutti i campi";
 					} else{
-						$query4 = "INSERT INTO `modellisensori`(`Codice`, `Tipo`, `Marca`) VALUES ('$cod', '$tipo', '$marca')" ;
+						
+						$query4 = sprintf(
+							"INSERT INTO `modellisensori`(`Codice`, `Tipo`, `Marca`) VALUES ('%s', '%s', '%s')",
+							mysqli_real_escape_string($connessione,$cod),
+							mysqli_real_escape_string($connessione,$tipo),
+							mysqli_real_escape_string($connessione,$marca)
+						
+						);
+						//$query4 = "INSERT INTO `modellisensori`(`Codice`, `Tipo`, `Marca`) VALUES ('$cod', '$tipo', '$marca')" ;
 						$inserisciSensore = $connessione->query($query4);
 					}
 				
@@ -601,7 +646,7 @@
     </div>
 			 <?php
 					
-					$codice = "";
+					$codice = '';
 					
 						
 					if (isset($_POST['id'])) $codice=$_POST['id'];
@@ -610,7 +655,13 @@
 					if ($codice == ""  ){
 							echo "Riempire tutti i campi";
 					} else{																//VEDERE SE ELIMINARE PURE I SENSORI
-						$query5 = "DELETE FROM `modellisensori`  WHERE Codice = '$codice' " ;
+					
+					$query5 = sprintf(
+							"DELETE FROM `modellisensori`  WHERE Codice = '%s' ",
+							mysqli_real_escape_string($connessione,$codice)
+						
+						);
+						//$query5 = "DELETE FROM `modellisensori`  WHERE Codice = '$codice' " ;
 						$impianti = $connessione->query($query5);
 					}
 			// chiusura della connessione
