@@ -66,7 +66,9 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT nome, cognome, email FROM utenti WHERE admin = 1 " ;
-						$utenti = $connessione->query($query1);
+						
+						$utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					
@@ -155,8 +157,10 @@
 					mysqli_real_escape_string($connessione,$email),
 					mysqli_real_escape_string($connessione,$password2)
 			);
+						
 						//$query3 = "INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','$nome','$cognome','$email','$password2','1')" ;
-						$impianti = $connessione->query($query3);
+						//$impianti = $connessione->query($query3);
+						$impianti= mysqli_query($connessione, $query3);
 					}
 					
 					
@@ -188,7 +192,8 @@
 				<tbody>
 					<?php 
 						$query2 = "SELECT nome, cognome, email, id FROM utenti WHERE admin = 1 " ;
-						$dipendenti = $connessione->query($query2);
+						$dipendenti= mysqli_query($connessione, $query2);
+						//$dipendenti = $connessione->query($query2);
 						
 						while ($row3 = $dipendenti->fetch_array(MYSQLI_NUM)){
 					
@@ -246,7 +251,8 @@
 						
 					);
 						//$query5 = "DELETE FROM `utenti` WHERE ID = '$id' " ;
-						$impianti = $connessione->query($query5);
+						$impianti= mysqli_query($connessione, $query5);
+						//$impianti = $connessione->query($query5);
 					}
 				
 				

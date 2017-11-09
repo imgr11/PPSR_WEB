@@ -38,7 +38,8 @@ $query3 = sprintf(
 					
 			);
 //$query3 = "SELECT `nome`, `cognome` FROM `utenti` WHERE ID='$id'" ;
-$risultato = $connessione->query($query3);
+	$risultato= mysqli_query($connessione, $query3);
+//$risultato = $connessione->query($query3);
 while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 	$name=$row1[0];
 	$surname=$row1[1];
@@ -88,7 +89,8 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 					
 					//$query1 = "SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '$id'";
 							
-					$result = $connessione->query($query1);
+						$result= mysqli_query($connessione, $query1);
+					//$result = $connessione->query($query1);
 						
 						while ($row1 = $result->fetch_array(MYSQLI_NUM)){
 					
@@ -154,7 +156,8 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 						mysqli_real_escape_string($connessione,$ID)
 					);
 						//$query3 = "SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'" ;
-						$sensori = $connessione->query($query3);
+						$sensori= mysqli_query($connessione, $query3);
+						//$sensori = $connessione->query($query3);
 						while ($row1 = $sensori->fetch_array(MYSQLI_NUM)){
 					
 						?>
@@ -242,7 +245,8 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 					);
 						//$query3 = "SELECT `ID` `Codice` FROM `utenti` WHERE codice='$nome'" ;
 						
-						$risultato = $connessione->query($query3);
+						$risultato= mysqli_query($connessione, $query3);
+						//$risultato = $connessione->query($query3);
 						while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 							
 							$ID1= $row1[0];
@@ -275,7 +279,9 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 					);
 					// al posto di 6 mettere variabile presa da login SELECT ID FROM `impianti` WHERE Cliente=6
 					//$query1 = "SELECT DISTINCT impianti.Nome, ID FROM impianti WHERE impianti.Cliente= '$ID1'";
-					$result = $connessione->query($query1);
+					
+					$result= mysqli_query($connessione, $query1);
+					//$result = $connessione->query($query1);
 						
 						while ($row1 = $result->fetch_array(MYSQLI_NUM)){
 					
@@ -339,7 +345,8 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 						mysqli_real_escape_string($connessione,$ID)
 					);
 						//$query3 = "SELECT modello, rilevazione FROM `sensori` WHERE Impianto= '$ID'" ;
-						$sensori = $connessione->query($query3);
+						$sensori= mysqli_query($connessione, $query3);
+						//$sensori = $connessione->query($query3);
 						while ($row1 = $sensori->fetch_array(MYSQLI_NUM)){
 					
 						?>
@@ -380,7 +387,9 @@ while ($row1 = $risultato->fetch_array(MYSQLI_NUM)){
 							mysqli_real_escape_string($connessione,$id)
 						);
 						//$query1 = "SELECT codice FROM utenti WHERE ID = '$id' " ;
-						$utenti = $connessione->query($query1);
+						
+						$utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					

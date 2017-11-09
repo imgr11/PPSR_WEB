@@ -42,9 +42,10 @@ $query1= sprintf(
 	mysqli_real_escape_string($connessione,$username),
 	mysqli_real_escape_string($connessione,$password1)
 	);
-$query= $connessione->query($query1);
 	
+//$query= $connessione->query($query1);
 	
+	$query= mysqli_query($connessione, $query1);
 	
 
 //$query = $connessione->query("SELECT * FROM utenti WHERE email = '$username' AND password = '$password1'");
@@ -58,7 +59,8 @@ if($query->num_rows) {
 		);
 		
 		//$queryAdmin= "SELECT admin FROM utenti WHERE email = '$username' AND password = '$password1'";
-		$admin = $connessione->query($queryAdmin);
+		//$admin = $connessione->query($queryAdmin);
+		$admin= mysqli_query($connessione, $queryAdmin);
 		while ($row1 = $admin->fetch_array(MYSQLI_NUM)){
 		
 		
@@ -72,7 +74,8 @@ if($query->num_rows) {
 			);
 			//per passare l'id della tabella
 			//$id = "SELECT id FROM utenti WHERE email = '$username' AND password = '$password1'";
-			$result = $connessione->query($id);
+			//$result = $connessione->query($id);
+			$result= mysqli_query($connessione, $id);
 			while($row = $result->fetch_array(MYSQLI_NUM)){
 			
 				session_start();

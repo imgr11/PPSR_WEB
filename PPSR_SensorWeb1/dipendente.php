@@ -72,7 +72,9 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT ID, nome FROM impianti " ;
-						$utenti = $connessione->query($query1);
+						
+						$utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					
@@ -164,7 +166,9 @@
 							mysqli_real_escape_string($connessione,$password2)
 						);
 						//$query3 = "INSERT INTO `utenti`(`ID`, `Nome`, `Cognome`, `Email`, `Password`, `admin`) VALUES ('','$nome','$cognome','$email','$password2','0')" ;
-						$impianti = $connessione->query($query3);
+						
+							$impianti= mysqli_query($connessione, $query3);
+						//$impianti = $connessione->query($query3);
 					}
 				
 		?> 
@@ -195,7 +199,9 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT nome, cognome, email FROM utenti WHERE admin = 0 " ;
-						$utenti = $connessione->query($query1);
+						
+						$utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						
 						
@@ -241,7 +247,9 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT nome, cognome, email, id FROM utenti WHERE admin = 0 " ;
-						$utenti = $connessione->query($query1);
+						
+						$utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					
@@ -301,7 +309,8 @@
 						
 						);
 						 //$query5 = "DELETE FROM `utenti` WHERE ID = '$id44' " ;
-						$impianti = $connessione->query($query5);
+						 $impianti= mysqli_query($connessione, $query5);
+						//$impianti = $connessione->query($query5);
 					}
 				
 		?> 
@@ -332,7 +341,8 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT nome, cognome, email, id FROM utenti WHERE admin = 0 " ;
-						$utenti = $connessione->query($query1);
+						 $utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					
@@ -398,7 +408,9 @@
 						
 						);
 						//$query4 = "INSERT INTO `impianti`(`ID`, `Nome`, `Cliente`) VALUES ('','$nome1','$id')" ;
-						$impianti = $connessione->query($query4);
+						
+							 $impianti= mysqli_query($connessione, $query4);
+						//$impianti = $connessione->query($query4);
 					}
 				
 		?> 
@@ -427,7 +439,8 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT ID, nome FROM impianti " ;
-						$utenti = $connessione->query($query1);
+						 $utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					
@@ -487,7 +500,8 @@
 							mysqli_real_escape_string($connessione,$id)
 						
 						);
-						$impianti = $connessione->query($query5);
+						 $impianti= mysqli_query($connessione, $query5);
+						//$impianti = $connessione->query($query5);
 					}
 				
 		?> </li>
@@ -571,7 +585,8 @@
 						
 						);
 						//$query4 = "INSERT INTO `modellisensori`(`Codice`, `Tipo`, `Marca`) VALUES ('$cod', '$tipo', '$marca')" ;
-						$inserisciSensore = $connessione->query($query4);
+							 $inserisciSensore= mysqli_query($connessione, $query4);
+						//$inserisciSensore = $connessione->query($query4);
 					}
 				
 		?> 
@@ -601,7 +616,8 @@
 				<tbody>
 					<?php 
 						$query1 = "SELECT `Codice`, `Tipo`, `Marca` FROM `modellisensori`" ;
-						$utenti = $connessione->query($query1);
+						$utenti= mysqli_query($connessione, $query1);
+						//$utenti = $connessione->query($query1);
 						
 						while ($row1 = $utenti->fetch_array(MYSQLI_NUM)){
 					
@@ -662,7 +678,8 @@
 						
 						);
 						//$query5 = "DELETE FROM `modellisensori`  WHERE Codice = '$codice' " ;
-						$impianti = $connessione->query($query5);
+						$impianti= mysqli_query($connessione, $query5);
+						//$impianti = $connessione->query($query5);
 					}
 			// chiusura della connessione
 			$connessione->close();
